@@ -17,17 +17,17 @@
 [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS-lightgrey?style=flat-square&logo=linux)](https://github.com)
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](LICENSE)
 [![API](https://img.shields.io/badge/API-VirusTotal%20v3-1976d2?style=flat-square)](https://www.virustotal.com)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/youruser/hashcheck/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/youruser/malhash/pulls)
 
-[Features](#-features) · [Why hashcheck?](#-why-hashcheck) · [Install](#-installation) · [Usage](#-usage) · [Commands](#-commands) · [Export](#-exporting-results) · [FAQ](#-faq)
+[Features](#-features) · [Why malhash?](#-why-malhash) · [Install](#-installation) · [Usage](#-usage) · [Commands](#-commands) · [Export](#-exporting-results) · [FAQ](#-faq)
 
 </div>
 
 ---
 
-## What is hashcheck?
+## What is Malhash ?
 
-**hashcheck** is a lightweight, dependency-free interactive console for checking whether file hashes are malicious using the [VirusTotal API v3](https://docs.virustotal.com/). Built for forensic analysts, incident responders, SOC analysts, and CTF players who need to triage IOCs quickly without switching between browser tabs, curl commands, or Python scripts.
+**Malhash** is a lightweight, dependency-free interactive console for checking whether file hashes are malicious using the [VirusTotal API v3](https://docs.virustotal.com/). Built for forensic analysts, incident responders, SOC analysts, and CTF players who need to triage IOCs quickly without switching between browser tabs, curl commands, or Python scripts.
 
 It works like `msfconsole` — set your API key once, and run any check from a single persistent session.
 
@@ -73,7 +73,7 @@ hashcheck (key ✓) > check 44d88612fea8a8f36de82e1278abb02f
 
 ---
 
-## 💡 Why hashcheck?
+## 💡 Why Malhash?
 
 When triaging an incident or working through a CTF, checking a hash reputation typically means:
 
@@ -83,11 +83,11 @@ When triaging an incident or working through a CTF, checking a hash reputation t
 
 For bulk checks, analysts usually resort to writing ad-hoc curl one-liners or Python scripts just to loop through a list — and none of those tools give you a clean, color-coded summary or a ready-to-share report.
 
-**hashcheck collapses all of that into one persistent console.** Your API key is saved. Hashes are auto-detected. Bulk checks run with rate limiting built in. Results accumulate in the session and export to JSON or CSV in one command.
+**Malhash collapses all of that into one persistent console.** Your API key is saved. Hashes are auto-detected. Bulk checks run with rate limiting built in. Results accumulate in the session and export to JSON or CSV in one command.
 
 ### Compared to alternatives
 
-| | hashcheck | VirusTotal website | curl + VT API | vt-cli |
+| | malhash | VirusTotal website | curl + VT API | vt-cli |
 |---|:---:|:---:|:---:|:---:|
 | Works offline (local hashing) | ✅ | ❌ | ❌ | ❌ |
 | No dependencies | ✅ | ✅ | ✅ | ❌ |
@@ -105,26 +105,26 @@ For bulk checks, analysts usually resort to writing ad-hoc curl one-liners or Py
 No pip, no virtualenv, no setup. Python 3.10+ is the only hard requirement.
 
 ```bash
-git clone https://github.com/youruser/hashcheck.git
-cd hashcheck
+git clone https://github.com/ZetaOrioniss/malhash.git
+cd malhash
 chmod +x malhash.py
 ```
 
 **Optional — install system-wide:**
 
 ```bash
-sudo cp hashcheck.py /usr/local/bin/malhash
+sudo cp malhash.py /usr/local/bin/malhash
 ```
 
 Then just run:
 
 ```bash
-hashcheck
+malhash
 ```
 
 ### Getting a VirusTotal API key
 
-hashcheck requires a free VirusTotal account to use the API.
+Malhash requires a free VirusTotal account to use the API.
 
 1. Sign up at [https://www.virustotal.com/gui/join-us](https://www.virustotal.com/gui/join-us)
 2. Go to your profile → **API Key**
@@ -143,7 +143,7 @@ The key is saved automatically to `~/.hashcheck_config` with permissions `600`.
 ## 🚀 Usage
 
 ```bash
-python3 hashcheck.py
+python3 malhash.py
 ```
 
 ### Typical workflow
@@ -172,7 +172,7 @@ hashcheck (key ✓) > export report.csv
 
 ### IOC file format (`import`)
 
-hashcheck accepts plain text files with one hash per line. Lines starting with `#` are treated as comments and ignored. Mixed hash types (MD5, SHA-1, SHA-256) in the same file are supported.
+Malhash accepts plain text files with one hash per line. Lines starting with `#` are treated as comments and ignored. Mixed hash types (MD5, SHA-1, SHA-256) in the same file are supported.
 
 ```
 # IOC list - incident 2024-11-05
@@ -264,7 +264,7 @@ name · file_type · size · first_seen · last_seen · error · vt_link
 ## ❓ FAQ
 
 **Do I need a paid VirusTotal account?**
-No. A free account is sufficient. The free API tier allows 4 requests/minute and 500/day. hashcheck's default 15-second delay keeps you safely within these limits.
+No. A free account is sufficient. The free API tier allows 4 requests/minute and 500/day. malhash's default 15-second delay keeps you safely within these limits.
 
 **What hash types are supported?**
 MD5 (32 chars), SHA-1 (40 chars), and SHA-256 (64 chars). The type is detected automatically from the hash length.
@@ -273,7 +273,7 @@ MD5 (32 chars), SHA-1 (40 chars), and SHA-256 (64 chars). The type is detected a
 Yes. Each hash is detected individually, so an IOC list with MD5, SHA-1, and SHA-256 hashes all in the same file works without any configuration.
 
 **What if a hash is not found?**
-hashcheck will return an `UNKNOWN` verdict with the message "Not found in VirusTotal". This means the file has never been submitted to VT — it does not mean the file is safe.
+malhash will return an `UNKNOWN` verdict with the message "Not found in VirusTotal". This means the file has never been submitted to VT — it does not mean the file is safe.
 
 **Is my API key secure?**
 The key is stored in `~/.hashcheck_config` with `chmod 600` (readable only by your user). It is never sent anywhere other than the official VirusTotal API endpoint.
@@ -287,7 +287,7 @@ The core logic works on Windows with Python 3.10+. Tab completion via `readline`
 
 This tool is intended **for authorized forensic analysis, incident response, CTF competitions, and educational purposes only**.
 
-hashcheck queries the public VirusTotal API. By using this tool you agree to [VirusTotal's Terms of Service](https://docs.virustotal.com/docs/terms-of-service). The author is not responsible for any misuse or violation of third-party terms.
+Malhash queries the public VirusTotal API. By using this tool you agree to [VirusTotal's Terms of Service](https://docs.virustotal.com/docs/terms-of-service). The author is not responsible for any misuse or violation of third-party terms.
 
 ---
 
