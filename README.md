@@ -107,13 +107,13 @@ No pip, no virtualenv, no setup. Python 3.10+ is the only hard requirement.
 ```bash
 git clone https://github.com/youruser/hashcheck.git
 cd hashcheck
-chmod +x hashcheck.py
+chmod +x malhash.py
 ```
 
 **Optional — install system-wide:**
 
 ```bash
-sudo cp hashcheck.py /usr/local/bin/hashcheck
+sudo cp hashcheck.py /usr/local/bin/malhash
 ```
 
 Then just run:
